@@ -11,6 +11,7 @@ gem 'mongoid'
 gem 'websocket-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'devise'
 
 group :development do
   gem 'spring'
