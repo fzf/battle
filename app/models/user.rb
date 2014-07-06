@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  has_and_belongs_to_many :battles
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
