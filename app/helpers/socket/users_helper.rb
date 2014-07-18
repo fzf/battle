@@ -1,0 +1,2 @@
+module Socket::UsersHelper
+end

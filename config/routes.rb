@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :battles
+  resources :battles do
+    collection do
+      get 'create' => :create
+    end
+  end
+  resources :users, only: [:index]
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

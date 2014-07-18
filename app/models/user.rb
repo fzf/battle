@@ -1,6 +1,10 @@
 class User
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   has_and_belongs_to_many :battles
+  field :hit_points,         type: Integer, default: 20
+  field :current_hit_points, type: Integer, default: 20
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -25,14 +29,14 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  ## Confirmable
-  # field :confirmation_token,   type: String
-  # field :confirmed_at,         type: Time
-  # field :confirmation_sent_at, type: Time
-  # field :unconfirmed_email,    type: String # Only if using reconfirmable
+  embeds_many :actions
 
-  ## Lockable
-  # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
-  # field :locked_at,       type: Time
+  after_create :make_default_actions
+
+private
+  def make_default_actions
+    actions.create(name: 'Attack', damage: 6, piercing: 0, defense: 0)
+    actions.create(name: 'Jab',    damage: 0, piercing: 3, defense: 0)
+    actions.create(name: 'Defend', damage: 0, piercing: 0, defense: 6)
+  end
 end

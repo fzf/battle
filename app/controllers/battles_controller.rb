@@ -7,6 +7,8 @@ class BattlesController < ApplicationController
   end
 
   def show
+    @player = [current_user]
+    @opponent = @battle.users - [current_user]
   end
 
   def new
@@ -17,9 +19,11 @@ class BattlesController < ApplicationController
   end
 
   def create
-    @battle = Battle.new(battle_params.merge(users: [current_user]))
+    opponent = User.find(params[:opponent_id])
+    @battle = Battle.new(users: [current_user, opponent])
 
     if @battle.save
+      WebsocketRails.users[params[:opponent_id]].send_message 'battle.joined', @battle
       redirect_to @battle, notice: 'Battle was successfully created.'
     else
       render :new
