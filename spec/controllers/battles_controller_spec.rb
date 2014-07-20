@@ -54,6 +54,7 @@ RSpec.describe BattlesController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new battle as @battle" do
+      pending
       get :new, {}, valid_session
       expect(assigns(:battle)).to be_a_new(Battle)
     end

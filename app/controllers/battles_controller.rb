@@ -7,8 +7,8 @@ class BattlesController < ApplicationController
   end
 
   def show
-    @player = [current_user]
-    @opponent = @battle.users - [current_user]
+    @player = current_user
+    @opponent = (@battle.users - [current_user]).first.inspect
   end
 
   def new

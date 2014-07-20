@@ -4,7 +4,7 @@ class User
   has_and_belongs_to_many :battles
   field :hit_points,         type: Integer, default: 20
   field :current_hit_points, type: Integer, default: 20
-  
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -29,8 +29,9 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  embeds_many :actions
+  has_many :actions, class_name: 'User::Action'
 
+  has_many :turn_actions, class_name: 'Turn::Action'
   after_create :make_default_actions
 
 private

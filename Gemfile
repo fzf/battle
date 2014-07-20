@@ -18,7 +18,9 @@ group :development do
 end
 
 group :development, :test do
+  gem 'factory_girl_rails'
   gem 'pry-rails'
+  gem 'database_cleaner'
 end
 
 group :test do
