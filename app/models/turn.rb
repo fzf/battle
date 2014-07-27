@@ -1,7 +1,8 @@
 class Turn
   include Mongoid::Document
+  field :active, type: Boolean, default: true
   belongs_to :battle
-  has_many :actions, class_name: 'Turn::Action'
+  has_many :actions, class_name: 'Turn::Action', dependent: :destroy
 
   validates :actions, length: { maximum: 2 }
 
@@ -10,6 +11,9 @@ class Turn
 
     calculate_damage(actions.first, actions.last)
     calculate_damage(actions.last, actions.first)
+    update_attribute(:active, false)
+    WebsocketRails.users[actions.first.user._id].send_message 'turn.calculated'
+    WebsocketRails.users[actions.last.user._id].send_message 'turn.calculated'
   end
 
   def calculate_damage(action1, action2)

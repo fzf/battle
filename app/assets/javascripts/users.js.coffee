@@ -44,4 +44,10 @@ $(document).ready ->
   dispatcher.bind 'battle.joined', (battle) ->
     window.location.href = '/battles/' + battle._id
     return
+
+  turn_channel = dispatcher.subscribe('turns')
+  dispatcher.bind 'turn.calculated', ->
+    window.location.reload()
+    return
+
   return

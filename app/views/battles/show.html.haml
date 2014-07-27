@@ -4,9 +4,30 @@
   %b Active:
   = @battle.active
 %p
-  %b Player:
+  %b You:
+  = @player.name
+  = "#{@player.current_hit_points}/#{@player.hit_points}"
+
+%p
+  %b Actions:
   - @player.actions.each do |action|
-    = action.name
+    - if @battle.last_action_for(@player) && @battle.last_action_for(@player).name == action.name
+      = button_to action.name, play_battle_path(action_id: action._id), disabled: true
+    - else
+      = button_to action.name, play_battle_path(action_id: action._id)
 %p
   %b Opponent:
-  = @opponent
+  = @opponent.name
+  = "#{@opponent.current_hit_points}/#{@opponent.hit_points}"
+%p
+  %b Actions:
+  - @player.actions.each do |action|
+    = action.name
+
+%p
+  %b Turns:
+  - @battle.turns.each_with_index do |turn, number|
+    = number
+    - turn.actions.each do |action|
+      %p
+        = "#{action.user.name} #{action.name}"

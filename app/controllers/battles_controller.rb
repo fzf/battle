@@ -1,6 +1,6 @@
 class BattlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_battle, only: [:show, :edit, :update, :destroy]
+  before_action :set_battle, only: [:play, :show, :edit, :update, :destroy]
 
   def index
     @battles = Battle.all
@@ -8,7 +8,13 @@ class BattlesController < ApplicationController
 
   def show
     @player = current_user
-    @opponent = (@battle.users - [current_user]).first.inspect
+    @opponent = (@battle.users - [current_user]).first
+  end
+
+  def play
+    @action = Action.find(params[:action_id])
+    @battle.send_action(@action)
+    redirect_to :back
   end
 
   def new
