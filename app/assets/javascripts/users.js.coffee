@@ -8,14 +8,11 @@ $(document).ready ->
     ((users) ->
       $.each users, (index, user) ->
         $("#users").append """
-          <tr>
-            <td user_id=#{user._id}>
+          <li user_id=#{user._id} class='table-view-cell'>
+            <a href='users/#{user._id}' class='navigate-right'>
               #{user.name}
-              <a href='battles/create?opponent_id=#{user._id}'>
-                Battle
-              </a>
-            </td>
-          </tr>
+            </a>
+          </td>
         """
         return
     ),
@@ -29,15 +26,12 @@ $(document).ready ->
     return
   user_channel.bind "available", (user) ->
     $("#users").append """
-      <tr>
-        <td user_id=#{user._id}>
+      <li user_id=#{user._id} class='table-view-cell'>
+        <a href='users/#{user._id}' class='navigate-right'>
           #{user.name}
-          <a href='battles/create?opponent_id=#{user._id}'>
-            Battle
-          </a>
-        </td>
-      </tr>
-      """
+        </a>
+      </td>
+    """
     return
 
   battle_channel = dispatcher.subscribe('battles')

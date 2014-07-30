@@ -25,6 +25,7 @@ class Turn
       :current_hit_points,
       action1.user.current_hit_points - total_damage
     )
+    action2.update_attribute(:damage_dealt, total_damage)
   end
 
   def damage_to action1, action2

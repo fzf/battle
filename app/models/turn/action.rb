@@ -1,4 +1,5 @@
 class Turn::Action < Action
+  field :damage_dealt
   belongs_to :turn
   belongs_to :user
 

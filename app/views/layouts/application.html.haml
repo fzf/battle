@@ -6,8 +6,17 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %p.notice
-      = notice
-    %p.alert
-      = alert
-    = yield
+    %header.bar.bar-nav
+      = link_to :back do
+        .icon.icon-left-nav.pull-left
+      - if current_user
+        = link_to user_path(current_user) do
+          .icon.icon-person.pull-right
+      %h1.title
+        = @title
+    .content
+      -# %p.notice
+      -#   = notice
+      -# %p.alert
+      -#   = alert
+      = yield

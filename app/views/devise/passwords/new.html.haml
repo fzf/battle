@@ -1,0 +1,7 @@
+- @title = 'Forgot Password'
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = devise_error_messages!
+  %div
+    = f.email_field :email, autofocus: true, placeholder: 'Email'
+  %div= f.submit "Send reset email", class: "btn btn-positive btn-block"
+= render "devise/shared/links"

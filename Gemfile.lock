@@ -121,6 +121,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
+    ratchet-sass (2.0.2)
     redis (3.1.0)
     redis-objects (0.9.1)
       redis (>= 3.0.2)
@@ -200,6 +201,7 @@ DEPENDENCIES
   mongoid
   pry-rails
   rails (= 4.1.1)
+  ratchet-sass
   rspec-rails
   sass-rails
   spring

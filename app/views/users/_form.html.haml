@@ -6,8 +6,5 @@
         - @user.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :active
-    = f.check_box :active
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: "btn btn-positive btn-block"

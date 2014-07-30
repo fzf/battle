@@ -12,6 +12,7 @@ gem 'websocket-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'devise'
+gem 'ratchet-sass'
 
 group :development do
   gem 'spring'

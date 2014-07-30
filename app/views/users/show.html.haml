@@ -1,0 +1,19 @@
+%ul.table-view
+  %li.table-view-cell
+    Health
+    .pull-right
+      = "#{@user.current_hit_points}/#{@user.hit_points}"
+  %li.table-view-cell.table-view-divider
+    Actions
+    .pull-right
+      Attack/Pierce/Defend
+  - @user.actions.each do |action|
+    %li.table-view-cell
+      = action.name
+      .pull-right
+        = "#{action.damage}/#{action.piercing}/#{action.defense}"
+- if @user == current_user
+  = link_to 'Edit', edit_user_path(@user), class: "btn btn-primary btn-block"
+  = link_to 'Logout', destroy_user_session_path, method: :delete, confirm: 'Log Out', class: "btn btn-negative btn-block"
+- else
+  = button_to 'Battle', battles_path(opponent_id: @user.id), class: "btn btn-positive btn-block"

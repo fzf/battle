@@ -30,6 +30,7 @@ class User
   field :last_sign_in_ip,    type: String
 
   has_many :actions, class_name: 'User::Action'
+  accepts_nested_attributes_for :actions
 
   has_many :turn_actions, class_name: 'Turn::Action'
   after_create :make_default_actions

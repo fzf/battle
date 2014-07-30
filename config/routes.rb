@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :battles do
-    collection do
-      get 'create' => :create
-    end
-
     member do
       post 'play' => :play
     end

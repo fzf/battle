@@ -1,0 +1,12 @@
+- @title = 'Sign In'
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = f.email_field :email, autofocus: true, placeholder: 'Email'
+  = f.password_field :password, autocomplete: "off", placeholder: 'Password'
+  /
+    <haml_silent> if devise_mapping.rememberable? </haml_silent><haml_block>
+    <div><haml_loud> f.check_box :remember_me </haml_loud> <haml_loud> f.label :remember_me </haml_loud></div>
+    </haml_block>
+  %div
+    = f.submit "Sign in", class: "btn btn-positive btn-block"
+
+= render "devise/shared/links"

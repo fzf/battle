@@ -1,33 +1,40 @@
-%p#notice= notice
+%ul.table-view
+  %li.table-view-cell
+    %span.player
+      = @player.name
+      = "#{@player.current_hit_points}/#{@player.hit_points}"
+    %span.pull-right
+      = @opponent.name
+      = "#{@opponent.current_hit_points}/#{@opponent.hit_points}"
+  %li.table-view-cell
+    %span.pull-left
+      - @player.actions.each do |action|
+        .action
+          = action.name
+          = "#{action.damage}/#{action.piercing}/#{action.defense}"
 
-%p
-  %b Active:
-  = @battle.active
-%p
-  %b You:
-  = @player.name
-  = "#{@player.current_hit_points}/#{@player.hit_points}"
+    %span.pull-right
+      - @opponent.actions.each do |action|
+        .action
+          = action.name
+          = "#{action.damage}/#{action.piercing}/#{action.defense}"
 
-%p
-  %b Actions:
+.moves
   - @player.actions.each do |action|
     - if @battle.last_action_for(@player) && @battle.last_action_for(@player).name == action.name
-      = button_to action.name, play_battle_path(action_id: action._id), disabled: true
+      = button_to action.name, play_battle_path(action_id: action._id), disabled: true, class: "btn btn-primary btn-block"
     - else
-      = button_to action.name, play_battle_path(action_id: action._id)
-%p
-  %b Opponent:
-  = @opponent.name
-  = "#{@opponent.current_hit_points}/#{@opponent.hit_points}"
-%p
-  %b Actions:
-  - @player.actions.each do |action|
-    = action.name
+      = button_to action.name, play_battle_path(action_id: action._id), class: "btn btn-primary btn-block"
 
-%p
-  %b Turns:
+%ul.table-view
+  %li.table-view-cell.table-view-divider
+    Turns
   - @battle.turns.each_with_index do |turn, number|
-    = number
-    - turn.actions.each do |action|
-      %p
-        = "#{action.user.name} #{action.name}"
+    %li.table-view-cell
+      -# = number
+      - turn.actions.each do |action|
+        - if action.user == current_user
+          = "#{action.user.name} #{action.name} for #{action.damage_dealt}"
+        - else
+          .pull-right
+            = "#{action.user.name} #{action.name} for #{action.damage_dealt}"
