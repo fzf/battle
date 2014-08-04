@@ -2,6 +2,11 @@
 %html
   %head
     %title Wayfaring Battle
+    %meta{charset: "utf-8"}/
+    %meta{content: "initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui", name: "viewport"}
+    / Makes your prototype chrome-less once bookmarked to your phone's home screen
+    %meta{content: "yes", name: "apple-mobile-web-app-capable"}/
+    %meta{content: "black", name: "apple-mobile-web-app-status-bar-style"}/
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
