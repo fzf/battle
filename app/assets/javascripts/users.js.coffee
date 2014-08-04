@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
-  dispatcher = new WebSocketRails("localhost:3000/websocket")
+
+  dispatcher = new WebSocketRails(window.location.origin.replace('http://', '') + "/websocket")
   dispatcher.trigger "users.index", {},
     ((users) ->
       $.each users, (index, user) ->
