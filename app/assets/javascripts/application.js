@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require ratchet
+//= require snap
 //= require_tree .
 //= require websocket_rails/main

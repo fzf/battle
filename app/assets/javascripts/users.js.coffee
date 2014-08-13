@@ -45,4 +45,33 @@ $(document).ready ->
     window.location.reload()
     return
 
+  # Instance
+  snapper = new Snap(element: document.getElementById('content'))
+  $("#menu").click ->
+    if snapper.state().state is "left"
+      snapper.close()
+      $('.left-drawer').hide()
+    else
+      $('.left-drawer').show()
+      snapper.open "left"
+    return
+
+  #
+  # UpdateDrawers = ->
+  #   state = snapper.state()
+  #   towards = state.info.towards
+  #   opening = state.info.opening
+  #   if opening is "right" and towards is "left"
+  #     $("right-drawer").classList.add "active-drawer"
+  #     $("left-drawer").classList.remove "active-drawer"
+  #   else if opening is "left" and towards is "right"
+  #     $("right-drawer").classList.remove "active-drawer"
+  #     $("left-drawer").classList.add "active-drawer"
+  #   return
+
+
+  # snapper.on "drag", UpdateDrawers
+  # snapper.on "animating", UpdateDrawers
+  # snapper.on "animated", UpdateDrawers
+
   return

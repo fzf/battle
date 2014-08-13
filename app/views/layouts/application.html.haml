@@ -11,17 +11,22 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %header.bar.bar-nav
-      = link_to :back do
-        .icon.icon-left-nav.pull-left
-      - if current_user
-        = link_to user_path(current_user) do
-          .icon.icon-person.pull-right
-      %h1.title
-        = @title
-    .content
-      -# %p.notice
-      -#   = notice
-      -# %p.alert
-      -#   = alert
-      = yield
+    .drawers{style: 'position: absolute;'}
+      .left-drawer{style: 'position: absolute;', hidden: true}
+        %ul.table-view{style: 'width: 266px; border-right: 1px solid #dddddd;'}
+          %li.table-view-cell
+            = link_to 'Users', users_path
+    #content
+      %header.bar.bar-nav
+        #menu.icon.icon-bars.pull-left
+        - if current_user
+          = link_to user_path(current_user) do
+            .icon.icon-person.pull-right
+        %h1.title
+          = @title
+      %body.content
+        -# %p.notice
+        -#   = notice
+        -# %p.alert
+        -#   = alert
+        = yield
