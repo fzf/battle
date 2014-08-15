@@ -3,6 +3,7 @@ class Battle
   field :active, type: Boolean, default: true
   has_and_belongs_to_many :users
   has_many :turns, dependent: :destroy
+  belongs_to :npc
 
   def send_action action
     turns.find_or_create_by(active: true).actions.create(

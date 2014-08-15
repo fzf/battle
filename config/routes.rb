@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :npcs
+
   devise_for :users
   resources :battles do
     member do

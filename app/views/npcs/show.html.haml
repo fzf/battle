@@ -1,0 +1,16 @@
+%ul.table-view
+  %li.table-view-cell
+    Health
+    .pull-right
+      = "#{@npc.current_hit_points}/#{@npc.hit_points}"
+  %li.table-view-cell.table-view-divider
+    Actions
+    .pull-right
+      Attack/Pierce/Defend
+  - @npc.actions.each do |action|
+    %li.table-view-cell
+      = action.name
+      .pull-right
+        = "#{action.damage}/#{action.piercing}/#{action.defense}"
+  = link_to 'Edit', edit_npc_path(@npc), class: "btn btn-primary btn-block"
+  = button_to 'Battle', battles_path(opponent_id: @npc.id), class: "btn btn-positive btn-block"

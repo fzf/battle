@@ -1,0 +1,17 @@
+%h1 Listing npcs
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @npcs.each do |npc|
+    %tr
+      %td= link_to 'Show', npc
+      %td= link_to 'Edit', edit_npc_path(npc)
+      %td= link_to 'Destroy', npc, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Npc', new_npc_path

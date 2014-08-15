@@ -1,0 +1,32 @@
+= form_for @npc do |f|
+  - if @npc.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@npc.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @npc.errors.full_messages.each do |msg|
+          %li= msg
+
+  .input-row
+    = f.label :current_hit_points, 'Current HP'
+    = f.text_field :current_hit_points
+  .input-row
+    = f.label :hit_points
+    = f.text_field :hit_points
+  .input-row
+    = f.label :actions
+  = f.fields_for :actions do |a|
+    = a.hidden_field :_id
+    .input-row
+      = a.label :name
+      = a.text_field :name
+    .input-row
+      = a.label :damage
+      = a.text_field :damage
+    .input-row
+      = a.label :piercing
+      = a.text_field :piercing
+    .input-row
+      = a.label :defense
+      = a.text_field :defense
+  .actions
+    = f.submit 'Save', class: "btn btn-positive btn-block"

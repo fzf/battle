@@ -8,7 +8,7 @@ class BattlesController < ApplicationController
 
   def show
     @player = current_user
-    @opponent = (@battle.users - [current_user]).first
+    @opponent = (@battle.users - [current_user]).first || @battle.npc
   end
 
   def play
@@ -25,8 +25,12 @@ class BattlesController < ApplicationController
   end
 
   def create
-    opponent = User.find(params[:opponent_id])
-    @battle = Battle.new(users: [current_user, opponent])
+    opponent = User.find(params[:opponent_id]) || Npc.find(params[:opponent_id])
+    if opponent.class == User
+      @battle = Battle.new(users: [current_user, opponent])
+    else
+      @battle = Battle.new(users: [current_user], npc: opponent)
+    end
 
     if @battle.save
       WebsocketRails.users[params[:opponent_id]].send_message 'battle.joined', @battle
