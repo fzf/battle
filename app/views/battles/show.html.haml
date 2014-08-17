@@ -37,4 +37,7 @@
           = "#{action.user.name} #{action.name} for #{action.damage_dealt}"
         - else
           .pull-right
-            = "#{action.user.name} #{action.name} for #{action.damage_dealt}"
+            - if action.user.present?
+              = "#{action.user.name} #{action.name} for #{action.damage_dealt}"
+            - else
+              = "#{action.npc.name} #{action.name} for #{action.damage_dealt}"

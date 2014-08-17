@@ -21,10 +21,18 @@ class Turn
                    damage_prevented(action2, action1) +
                    action2.piercing
 
-    action1.user.update_attribute(
-      :current_hit_points,
-      action1.user.current_hit_points - total_damage
-    )
+    if action1.user
+      action1.user.update_attribute(
+        :current_hit_points,
+        action1.user.current_hit_points - total_damage
+      )
+    else
+      action1.npc.update_attribute(
+        :current_hit_points,
+        action1.npc.current_hit_points - total_damage
+      )
+    end
+
     action2.update_attribute(:damage_dealt, total_damage)
   end
 
@@ -35,7 +43,7 @@ class Turn
 
   def damage_prevented action1, action2
     # TODO Fuck this method
-    return 0 if action2.  damage == 0
+    return 0 if action2.damage == 0
     defense_difference = action1.defense - action2.damage
     total_defense = (defense_difference <= 0) ? defense_difference : 0
 

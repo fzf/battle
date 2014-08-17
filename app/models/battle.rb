@@ -6,9 +6,16 @@ class Battle
   belongs_to :npc
 
   def send_action action
-    turns.find_or_create_by(active: true).actions.create(
+    last_turn = turns.last
+
+    turn = turns.find_or_create_by(active: true)
+    turn.actions.create(
       action.attributes.except('_id', '_type')
     )
+    turn.actions.create(
+      npc.choose_action_from_last_turn(last_turn).
+        attributes.except('_id', '_type')
+    ) if npc
   end
 
   def last_action_for user

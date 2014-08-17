@@ -2,6 +2,7 @@ class Turn::Action < Action
   field :damage_dealt
   belongs_to :turn
   belongs_to :user
+  belongs_to :npc
 
   after_create :calculate_turn
 

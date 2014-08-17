@@ -12,6 +12,22 @@ class Npc
   has_many :turn_actions, class_name: 'Turn::Action'
   after_create :make_default_actions
 
+  def choose_action_from_last_turn(turn)
+    return actions.sample unless turn.present?
+    opponent_last_action = turn.actions.where(:user.exists => true).first
+    npc_last_action = turn.actions.where(:npc.exists => true).first
+    eligible_actions = actions.where(:name.ne => npc_last_action.name)
+
+    case opponent_last_action.name
+    when "Defend"
+      eligible_actions.where(name: 'Attack') || eligible_actions.sample
+    when "Attack"
+      eligible_actions.where(:name.ne => 'Defend').sample
+    else
+      return eligible_actions.sample
+    end
+  end
+
 private
   def make_default_actions
     actions.create(name: 'Attack', damage: 6, piercing: 0, defense: 0)
