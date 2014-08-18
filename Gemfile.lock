@@ -214,6 +214,7 @@ DEPENDENCIES
   sass-rails
   snap_js-rails
   spring
+  thin
   turbolinks
   uglifier
   websocket-rails

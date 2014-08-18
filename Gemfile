@@ -15,6 +15,7 @@ gem 'turbolinks'
 gem 'devise'
 gem 'ratchet-sass'
 gem 'snap_js-rails'
+gem 'thin'
 
 group :production do
   gem 'rails_12factor'
