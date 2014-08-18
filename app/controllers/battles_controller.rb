@@ -3,7 +3,7 @@ class BattlesController < ApplicationController
   before_action :set_battle, only: [:play, :show, :edit, :update, :destroy]
 
   def index
-    @battles = Battle.all
+    @battles = current_user.battles
   end
 
   def show
@@ -33,6 +33,8 @@ class BattlesController < ApplicationController
     end
 
     if @battle.save
+      current_user.save
+      opponent.save
       WebsocketRails.users[params[:opponent_id]].send_message 'battle.joined', @battle
       redirect_to @battle, notice: 'Battle was successfully created.'
     else

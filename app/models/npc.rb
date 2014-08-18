@@ -20,9 +20,9 @@ class Npc
 
     case opponent_last_action.name
     when "Defend"
-      eligible_actions.where(name: 'Attack') || eligible_actions.sample
+      return eligible_actions.where(name: 'Attack').first || eligible_actions.sample
     when "Attack"
-      eligible_actions.where(:name.ne => 'Defend').sample
+      return eligible_actions.where(:name.ne => 'Defend').sample
     else
       return eligible_actions.sample
     end

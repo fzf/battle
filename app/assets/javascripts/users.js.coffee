@@ -37,7 +37,21 @@ $(document).ready ->
 
   battle_channel = dispatcher.subscribe('battles')
   dispatcher.bind 'battle.joined', (battle) ->
-    window.location.href = '/battles/' + battle._id
+    if window.confirm('A user challenged you to a battle, accept?')
+      window.location.href = '/battles/' + battle._id
+      return
+    return
+  dispatcher.bind 'battle.won', ->
+    window.confirm('You won!')
+    window.location.href = '/users'
+    return
+  dispatcher.bind 'battle.lost', ->
+    window.confirm('You lost')
+    window.location.href = '/users'
+    return
+  dispatcher.bind 'battle.draw', ->
+    window.confirm('You drew.')
+    window.location.href = '/users'
     return
 
   turn_channel = dispatcher.subscribe('turns')
@@ -55,23 +69,5 @@ $(document).ready ->
       $('.left-drawer').show()
       snapper.open "left"
     return
-
-  #
-  # UpdateDrawers = ->
-  #   state = snapper.state()
-  #   towards = state.info.towards
-  #   opening = state.info.opening
-  #   if opening is "right" and towards is "left"
-  #     $("right-drawer").classList.add "active-drawer"
-  #     $("left-drawer").classList.remove "active-drawer"
-  #   else if opening is "left" and towards is "right"
-  #     $("right-drawer").classList.remove "active-drawer"
-  #     $("left-drawer").classList.add "active-drawer"
-  #   return
-
-
-  # snapper.on "drag", UpdateDrawers
-  # snapper.on "animating", UpdateDrawers
-  # snapper.on "animated", UpdateDrawers
 
   return
