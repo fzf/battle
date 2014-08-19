@@ -41,7 +41,7 @@ $(document).ready ->
       window.location.href = '/battles/' + battle._id
       return
     return
-  dispatcher.bind 'battle.won', ->
+  dispatcher.bind 'battle.win', ->
     window.confirm('You won!')
     window.location.href = '/users'
     return

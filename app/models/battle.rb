@@ -27,7 +27,7 @@ class Battle
 
   def is_over?
     losers = users.where(:current_hit_points.lte => 0)
-    if npc.current_hit_points <= 0 || losers.present?
+    if npc.reload.current_hit_points <= 0 || losers.present?
       if npc.present?
         if npc.current_hit_points <= 0
           if users.first.current_hit_points <= 0
@@ -38,8 +38,9 @@ class Battle
           end
         else
           update_attribute(:loser, users.first)
-          WebsocketRails.users[users.first._id].send_message 'battle.lose'
+          WebsocketRails.users[users.first._id].send_message 'battle.lost'
         end
+        users.first.update_attribute(:current_hit_points, users.first.hit_points)
       else
         if losers.count == 2
           WebsocketRails.users[users.first._id].send_message 'battle.draw'
@@ -47,9 +48,11 @@ class Battle
         else
           update_attribute(:loser, losers.first)
           update_attribute(:winner, (users - losers).first)
-          WebsocketRails.users[losers.first._id].send_message 'battle.lose'
+          WebsocketRails.users[losers.first._id].send_message 'battle.lost'
           WebsocketRails.users[(users - losers).first._id].send_message 'battle.win'
         end
+        users.first.update_attribute(:current_hit_points, users.first.hit_points)
+        users.last.update_attribute(:current_hit_points, users.last.hit_points)
       end
       update_attribute(:active, false)
       return true
